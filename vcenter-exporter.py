@@ -332,9 +332,15 @@ class VcenterExporter():
                             else:
                                 metric_detail = val.id.instance
 
+                            if sys.version_info[0] > 2:
+                                counter_info_v_to_k = list(self.counter_info.keys())[
+                                    list(self.counter_info.values())
+                                    .index(val.id.counterId)]
+                            else:
+                                counter_info_v_to_k = self.counter_info.keys()[
+                                    self.counter_info.values().index(val.id.counterId)]
                             self.gauge['vcenter_' +
-                                       self.counter_info.keys()[self.counter_info.values()
-                                                                .index(val.id.counterId)]
+                                       counter_info_v_to_k
                                        .replace('.', '_')].labels(
                                            annotations['name'],
                                            annotations['projectid'], self.datacentername,
